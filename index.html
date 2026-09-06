@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr Abdullah's Red Flowers — Test App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#d1213f;
+    --red-deep:#9c1330;
+    --green:#3f7d4e;
+    --cream:#fff8f2;
+    --ink:#2c2320;
+    --shadow:0 10px 30px rgba(120,20,40,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Nunito',system-ui,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #ffe6ec 0%, transparent 60%),
+      radial-gradient(1000px 500px at -10% 110%, #eef6ef 0%, transparent 55%),
+      var(--cream);
+    line-height:1.6;
+    min-height:100vh;
+  }
+  h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.2}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+
+  /* Hero */
+  header.hero{
+    text-align:center;
+    padding:64px 20px 40px;
+  }
+  .badge{
+    display:inline-block;
+    background:#fff;
+    color:var(--red-deep);
+    border:1px solid #f3c9d3;
+    padding:6px 16px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:.85rem;
+    letter-spacing:.04em;
+    box-shadow:var(--shadow);
+  }
+  .hero h1{
+    font-size:clamp(2rem,6vw,3.4rem);
+    margin:18px 0 10px;
+    color:var(--red-deep);
+  }
+  .hero p{
+    max-width:560px;
+    margin:0 auto;
+    font-size:1.1rem;
+    color:#6a5c56;
+  }
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:26px;
+    background:var(--red);
+    color:#fff;
+    border:none;
+    font-family:inherit;
+    font-weight:700;
+    font-size:1.05rem;
+    padding:14px 26px;
+    border-radius:14px;
+    cursor:pointer;
+    min-height:48px;
+    box-shadow:var(--shadow);
+    transition:transform .15s ease, background .2s ease;
+  }
+  .cta:hover{transform:translateY(-2px);background:var(--red-deep)}
+  .cta:active{transform:translateY(0)}
+
+  /* Toolbar */
+  .toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+    align-items:center;
+    margin:8px auto 0;
+  }
+  .btn-soft{
+    background:#fff;
+    color:var(--ink);
+    border:1px solid #ecd8dc;
+    font-family:inherit;
+    font-weight:700;
+    padding:11px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    min-height:44px;
+    transition:background .2s ease, transform .15s ease;
+  }
+  .btn-soft:hover{background:#fbeef1;transform:translateY(-1px)}
+  .count{
+    font-weight:700;
+    color:var(--red-deep);
+    background:#fff;
+    border:1px dashed #f0c3ce;
+    padding:8px 16px;
+    border-radius:12px;
+  }
+  .save-note{
+    text-align:center;
+    min-height:22px;
+    color:var(--green);
+    font-weight:600;
+    font-size:.9rem;
+    margin-top:10px;
+  }
+
+  /* Garden */
+  .garden{
+    margin:26px auto 10px;
+    background:linear-gradient(180deg,#ffffff 0%, #fff3f5 100%);
+    border:1px solid #f2d3da;
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    padding:28px;
+    min-height:280px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    justify-content:center;
+    align-content:flex-start;
+  }
+  .empty{
+    width:100%;
+    text-align:center;
+    color:#b99;
+    font-style:italic;
+    align-self:center;
+    padding:40px 0;
+  }
+  .flower{
+    width:88px;
+    height:110px;
+    position:relative;
+    animation:bloom .5s cubic-bezier(.2,1.4,.5,1) both;
+    cursor:pointer;
+  }
+  @keyframes bloom{from{transform:scale(0) rotate(-20deg);opacity:0}to{transform:scale(1);opacity:1}}
+  .flower svg{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 8px rgba(150,20,40,.18))}
+  .flower:hover svg{animation:sway 1.4s ease-in-out infinite}
+  @keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+  .flower .tip{
+    position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+    background:var(--ink);color:#fff;font-size:.7rem;padding:2px 8px;
+    border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s;white-space:nowrap;
+  }
+  .flower:hover .tip{opacity:1}
+
+  /* How it works */
+  .how{
+    margin:48px 0 60px;
+    background:#fff;
+    border:1px solid #eee0dc;
+    border-radius:22px;
+    padding:34px;
+    box-shadow:var(--shadow);
+  }
+  .how h2{color:var(--red-deep);margin-bottom:14px;font-size:1.6rem}
+  .how ol{margin:0 0 0 20px}
+  .how li{margin-bottom:8px}
+  footer{
+    text-align:center;
+    padding:0 20px 40px;
+    color:#9a8b85;
+    font-size:.9rem;
+  }
+  @media(min-width:760px){
+    .flower{width:100px;height:126px}
+  }
+</style>
+<script id="factory-store-sdk">
+window.factory=(function(){
+var K="033cf299-f05f-4963-9591-a0a3ba3a2039",U="https://canvbkibjgcnqowjtarf.supabase.co/functions/v1/app-market",A="sb_publishable_sMTQKIeFgT1vwjHnU7Gexg_8CCmhtxs";
+function call(b){b.appKey=K;return fetch(U,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+A},body:JSON.stringify(b)}).then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||("store "+r.status));return d;});});}
+var S={
+put:function(c,i,d){return call({op:"put",collection:c,id:String(i),data:d}).then(function(x){return x.doc?x.doc.data:null;});},
+get:function(c,i){return call({op:"get",collection:c,id:String(i)}).then(function(x){return x.doc?x.doc.data:null;});},
+list:function(c){return call({op:"list",collection:c}).then(function(x){return x.docs.map(function(d){return d.data;});});},
+remove:function(c,i){return call({op:"delete",collection:c,id:String(i)}).then(function(){return true;});},
+unlock:function(code){return call({op:"redeem",code:String(code)}).then(function(x){try{localStorage.setItem("factory_access",x.status);}catch(e){}return x.status;});},
+access:function(){try{return localStorage.getItem("factory_access")||"none";}catch(e){return "none";}}
+};
+var _c=null;try{var h=(location.hash||"").match(/factory_code=([a-z0-9-]+)/i);_c=h?h[1]:localStorage.getItem("factory_code");if(h){history.replaceState(null,"",location.pathname+location.search);}}catch(e){}
+var F={put:S.put,get:S.get,list:S.list,remove:S.remove,unlock:S.unlock,access:S.access};
+F.ready=_c?S.unlock(_c).then(function(s){try{if(s!=="invalid")localStorage.setItem("factory_code",_c);}catch(e){}return s;}).catch(function(){return S.access();}):Promise.resolve(S.access());
+return F;})();
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">✦ Test App · by Mr Abdullah</span>
+    <h1>Mr Abdullah's Red Flowers</h1>
+    <p>A gentle little test garden. Press the button to grow a red flower — each bloom is saved and will still be here when you return.</p>
+    <button class="cta" id="grow">🌹 Make a red flower</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="toolbar">
+    <span class="count" id="count">0 flowers</span>
+    <button class="btn-soft" id="growMany">Grow 5 at once</button>
+    <button class="btn-soft" id="clear">Clear the garden</button>
+  </div>
+  <div class="save-note" id="saveNote"></div>
+
+  <section class="garden" id="garden" aria-label="Garden of red flowers">
+    <p class="empty" id="empty">The garden is empty. Press “Make a red flower” to begin. 🌱</p>
+  </section>
+
+  <section class="how">
+    <h2>How it works</h2>
+    <ol>
+      <li>Press <strong>Make a red flower</strong> (or “Grow 5 at once”) to add red flowers to the garden.</li>
+      <li>Each flower is drawn with clean SVG shapes — hover or tap one to see when it bloomed.</li>
+      <li>Your flowers are saved automatically to permanent cloud storage, so they stay when you close the page.</li>
+      <li>Everyone who opens this app shares the same garden. Use <strong>Clear the garden</strong> to start fresh.</li>
+    </ol>
+    <p style="margin-top:12px;color:#6a5c56">This is a simple test app — no payments, no sign-up, just red flowers. 🌹</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Made as a test · Mr Abdullah · with a little love 🌹</div>
+</footer>
+
+<script>
+  const garden = document.getElementById('garden');
+  const emptyMsg = document.getElementById('empty');
+  const countEl = document.getElementById('count');
+  const saveNote = document.getElementById('saveNote');
+
+  const hasFactory = typeof window.factory !== 'undefined';
+  let flowers = []; // {id, when}
+
+  const flowerSVG = `
+    <svg viewBox="0 0 100 126" role="img" aria-label="A red flower">
+      <path d="M50 60 C48 85 46 108 50 124" stroke="#3f7d4e" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M50 92 C34 84 26 90 24 100 C40 102 48 100 50 92Z" fill="#4c9260"/>
+      <path d="M50 78 C66 70 76 76 78 86 C60 88 52 86 50 78Z" fill="#4c9260"/>
+      <g>
+        <ellipse cx="50" cy="26" rx="12" ry="20" fill="#d1213f"/>
+        <ellipse cx="50" cy="26" rx="12" ry="20" fill="#d1213f" transform="rotate(60 50 40)"/>
+        <ellipse cx="50" cy="26" rx="12" ry="20" fill="#c11a37" transform="rotate(120 50 40)"/>
+        <ellipse cx="50" cy="26" rx="12" ry="20" fill="#d1213f" transform="rotate(180 50 40)"/>
+        <ellipse cx="50" cy="26" rx="12" ry="20" fill="#c11a37" transform="rotate(240 50 40)"/>
+        <ellipse cx="50" cy="26" rx="12" ry="20" fill="#d1213f" transform="rotate(300 50 40)"/>
+        <circle cx="50" cy="40" r="10" fill="#9c1330"/>
+        <circle cx="50" cy="40" r="5" fill="#ffd7a8"/>
+      </g>
+    </svg>`;
+
+  function fmt(ts){
+    try{ return new Date(ts).toLocaleString(); }catch(e){ return ''; }
+  }
+
+  function render(){
+    garden.querySelectorAll('.flower').forEach(f=>f.remove());
+    if(flowers.length===0){
+      emptyMsg.style.display='block';
+    } else {
+      emptyMsg.style.display='none';
+      flowers.forEach(fl=>{
+        const div = document.createElement('div');
+        div.className='flower';
+        div.innerHTML = flowerSVG + `<span class="tip">Bloomed: ${fmt(fl.when)}</span>`;
+        garden.appendChild(div);
+      });
+    }
+    countEl.textContent = flowers.length + (flowers.length===1?' flower':' flowers');
+  }
+
+  function note(msg, colour){
+    saveNote.textContent = msg;
+    saveNote.style.color = colour || 'var(--green)';
+    if(msg){ setTimeout(()=>{ if(saveNote.textContent===msg) saveNote.textContent=''; }, 2200); }
+  }
+
+  async function addFlower(){
+    const id = String(Date.now()) + Math.floor(Math.random()*1000);
+    const doc = {id, when: Date.now()};
+    flowers.push(doc);
+    render();
+    if(hasFactory){
+      note('Saving…','#c78');
+      try{ await factory.put('flowers', id, doc); note('Saved 🌹'); }
+      catch(e){ note('Could not save — showing locally only','#c0392b'); }
+    }
+  }
+
+  async function load(){
+    if(hasFactory){
+      try{
+        const list = await factory.list('flowers');
+        flowers = (list||[]).map(d=>({id:d.id, when:d.when||Date.now()}))
+                   .sort((a,b)=>a.when-b.when);
+      }catch(e){ flowers = []; }
+    }
+    render();
+  }
+
+  document.getElementById('grow').addEventListener('click', addFlower);
+
+  document.getElementById('growMany').addEventListener('click', async ()=>{
+    for(let i=0;i<5;i++){ await addFlower(); await new Promise(r=>setTimeout(r,120)); }
+  });
+
+  document.getElementById('clear').addEventListener('click', async ()=>{
+    if(flowers.length===0){ note('Garden is already empty'); return; }
+    if(!confirm('Clear all the flowers from the garden?')) return;
+    const toRemove = [...flowers];
+    flowers = [];
+    render();
+    if(hasFactory){
+      note('Clearing…','#c78');
+      try{
+        for(const f of toRemove){ await factory.remove('flowers', f.id); }
+        note('Garden cleared 🌱');
+      }catch(e){ note('Some flowers could not be removed','#c0392b'); }
+    }
+  });
+
+  load();
+</script>
+<div id="factory-provenance" style="padding:14px 16px;text-align:center;font:11px/1.7 system-ui,sans-serif;color:#888;opacity:.85;">&#9874; Built with <a href="https://factory-the-factory-ui.netlify.app" style="color:#888;">The Factory</a> using third-party AI tools &#183; the app owner is responsible for its content &#183; Standard: UK law, aligned with the UN Universal Declaration of Human Rights &#183; <a href="https://factory-the-factory-ui.netlify.app/terms.html" style="color:#888;">Terms</a></div>
+</body>
+</html>
